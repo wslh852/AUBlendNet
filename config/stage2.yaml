@@ -1,0 +1,85 @@
+DATA:
+  data_root:  /home/lh/data1/Data/lihao/AU32
+  AU_num: 32
+  
+LOSS:
+  loss: MSE
+  motion_weight: 1.0
+  reg_weight: 1.0
+
+NETWORK:
+  arch: stage2
+  in_dim: 15069
+  hidden_size: 1024
+  num_hidden_layers: 6
+  num_attention_heads: 8
+  intermediate_size: 1536
+  window_size: 1
+  quant_factor: 0
+  face_quan_num: 16
+  neg: 0.2
+  autoencoder: stage1_vocaset
+  INaffine: False
+  style_emb_method: nnemb # onehot or nnemb
+
+VQuantizer:
+  n_embed: 256
+  zquant_dim: 64
+
+PREDICTOR:
+  feature_dim: 1024
+  vertice_dim: 15069
+  device: cuda
+  period: 30
+  vqvae_pretrained_path: /home/lh/lihao/AU/Aublendnet-main/save_folder/vqvae/model.pth.tar
+  teacher_forcing: True
+  num_layers: 8
+  n_head: 8 # not used
+
+TRAIN:
+  use_sgd: False
+  sync_bn: False  # adopt sync_bn or not
+  train_gpu: [0]
+  workers: 0  # data loader workers
+  batch_size: 1  # batch size for training
+  batch_size_val: 1  # batch size for validation during training, memory and speed tradeoff
+  base_lr: 0.00001
+  StepLR: False
+  warmup_steps: 1
+  adaptive_lr: False
+  factor: 0.3
+  patience: 3
+  threshold: 0.0001
+  poly_lr: False
+  epochs: 100
+  step_size: 100
+  gamma: 0.5
+  start_epoch: 0
+  power: 0.9
+  momentum: 0.9
+  weight_decay: 0.002
+  manual_seed: 131
+  print_freq: 10
+  save_freq: 1
+  save_path: /home/lh/lihao/AU/Aublendnet-main/save_folder
+#  weight:
+  weight:
+  resume:
+  evaluate: True  # evaluate on validation set, extra gpu memory needed and small batch_size_val is recommend
+  eval_freq: 10
+
+Distributed:
+  dist_url: tcp://127.0.0.1:6701
+  dist_backend: 'nccl'
+  multiprocessing_distributed: True
+  world_size: 1
+  rank: 0
+
+
+TEST:
+  test_workers: 0
+  test_gpu: [0]
+  test_batch_size: 1
+  save: True
+  model_path: /home/lh/lihao/AU/Aublendnet-main/save_folder/aublendnet/model.pth.tar
+  save_folder: /home/lh/lihao/AU/Aublendnet-main/dataset/render

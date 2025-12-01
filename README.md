@@ -3,11 +3,6 @@
 > **AU-Blendshape for Fine-grained Stylized 3D Facial Expression Manipulation**, ***ICCV 2025***.
 >
 
-<p align="center">
-<img src="figure.png" width="75%"/>
-</p>
-
-
 <!-- ## **TODO**
 
 - [ ] Provide online demo. -->
@@ -53,9 +48,11 @@ You can achieve real-time AU control and emoji editing through the following scr
 ```
 python main/au_control.py
 ```
+## **VQVAE weight**
+- link: https://pan.baidu.com/s/14a7jzlNYxvYQ0VgLyvlsow?pwd=uy1s 
+- extraction code: uy1s 
 
+## **AUblendNet weight**
+- link: https://pan.baidu.com/s/1E8RQXkqVA2e44NYCWcdGKw?pwd=wefi
+- extraction code: wefi 
 
-
-
-
-# AUBlendNet
